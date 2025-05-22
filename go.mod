@@ -3,6 +3,7 @@ module github.com/aniagut/msc-bbs-anonymous-credentials
 go 1.18
 
 require (
+	github.com/aniagut/msc-bbs-plus-plus v1.0.0 // indirect
 	github.com/cloudflare/circl v1.6.1 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
