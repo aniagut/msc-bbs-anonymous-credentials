@@ -1,0 +1,7 @@
+RevealedAttributesLength,AveragePresentationTime
+10,256.347789ms
+20,513.697061ms
+40,773.789473ms
+100,1.030527536s
+199,1.288301827s
+200,1.544769914s
