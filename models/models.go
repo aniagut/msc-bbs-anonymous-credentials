@@ -64,3 +64,13 @@ type SignatureProof struct {
 	Z_i []e.Scalar
 	Z_e *e.Scalar
 }
+
+// SerializableSignatureProof represents a serializable version of the SignatureProof.
+type SerializableSignatureProof struct {
+    A_prim []byte
+    B_prim []byte
+    Ch     []byte
+    Z_r    []byte
+    Z_i    [][]byte
+    Z_e    []byte
+}

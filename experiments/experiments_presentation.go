@@ -12,10 +12,12 @@ import (
 	"bytes"
 )
 
-
+// MeasurePresentationTime measures the time taken to run the Presentation function for different sizes of the attributes vector
+// and numbers of revealed attributes.
+// It also measures the size of the generated proof.
 func MeasurePresentationTime() {
 	// Define the sizes of the attributes vector to test
-	lSizes := []int{20, 50, 100, 200, 500, 1000, 2000, 5000}
+	lSizes := []int{20, 50, 100, 200, 500, 1000, 2000, 5000, 10000}
 	// Iterate over each size
 	for _, l := range lSizes {
 		// Open the results file for writing time
@@ -34,8 +36,15 @@ func MeasurePresentationTime() {
 		}
 		defer fileSize.Close()
 
-		// Write the header to the file
+		// Write the header to the time file
 		_, err = file.WriteString("RevealedAttributesLength,AveragePresentationTime\n")
+		if err != nil {
+			fmt.Printf("Error writing to results file: %v\n", err)
+			return
+		}
+
+		// Write the header to the size file
+		_, err = fileSize.WriteString("RevealedAttributesLength,AveragePresentationSize\n")
 		if err != nil {
 			fmt.Printf("Error writing to results file: %v\n", err)
 			return
@@ -88,7 +97,7 @@ func MeasurePresentationTime() {
 				elapsed := time.Since(start)
 				totalTime += elapsed
 
-				proofBytes, err := serializeToBytes(proof)
+				proofBytes, err := SerializeToBytes(&proof)
 				// Check if serialization was successful
 				if err != nil {
 					fmt.Printf("Error serializing proof: %v\n", err)
@@ -120,9 +129,52 @@ func MeasurePresentationTime() {
 	}
 }
 
-func serializeToBytes(proof models.SignatureProof) ([]byte, error) {
+// SignatureProofToSerializable converts a SignatureProof to a SerializableSignatureProof
+func SignatureProofToSerializable(p *models.SignatureProof) (*models.SerializableSignatureProof, error) {
+    a_prim := p.A_prim.Bytes()
+	
+	b_prim := p.B_prim.Bytes()
+
+    ch, err := p.Ch.MarshalBinary()
+    if err != nil {
+        return nil, err
+    }
+    z_r, err := p.Z_r.MarshalBinary()
+    if err != nil {
+        return nil, err
+    }
+    z_e, err := p.Z_e.MarshalBinary()
+    if err != nil {
+        return nil, err
+    }
+
+    z_i := make([][]byte, len(p.Z_i))
+    for i, scalar := range p.Z_i {
+        b, err := scalar.MarshalBinary()
+        if err != nil {
+            return nil, err
+        }
+        z_i[i] = b
+    }
+
+    return &models.SerializableSignatureProof{
+        A_prim: a_prim,
+        B_prim: b_prim,
+        Ch:     ch,
+        Z_r:    z_r,
+        Z_i:    z_i,
+        Z_e:    z_e,
+    }, nil
+}
+
+// SerializeToBytes serializes a SignatureProof to bytes using gob
+func SerializeToBytes(proof *models.SignatureProof) ([]byte, error) {
+    ser, err := SignatureProofToSerializable(proof)
+    if err != nil {
+        return nil, err
+    }
     var buf bytes.Buffer
     enc := gob.NewEncoder(&buf)
-    err := enc.Encode(proof)
+    err = enc.Encode(ser)
     return buf.Bytes(), err
 }

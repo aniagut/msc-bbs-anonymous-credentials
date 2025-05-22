@@ -8,7 +8,7 @@ import (
 	"github.com/aniagut/msc-bbs-anonymous-credentials/issue"
 )
 
-
+// MeasureIssueTime measures the time taken to run the Issue function for different sizes of the attributes vector.
 func MeasureIssueTime() {
 	// Open the results file for writing
     file, err := os.Create("experiments/results/issue_time_results.txt")

@@ -7,7 +7,7 @@ import (
 	"github.com/aniagut/msc-bbs-anonymous-credentials/setup"
 )
 
-
+// MeasureSetupTime measures the time taken to run the Setup function for different sizes of the attributes vector.
 func MeasureSetupTime() {
 	// Open the results file for writing
     file, err := os.Create("experiments/results/setup_time_results.txt")
