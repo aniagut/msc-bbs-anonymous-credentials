@@ -1,7 +1,0 @@
-RevealedAttributesLength,AveragePresentationSize
-25,16102
-50,31379
-100,45006
-250,53682
-499,54140
-500,54563

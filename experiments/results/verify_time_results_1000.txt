@@ -1,7 +1,0 @@
-RevealedAttributesLength,AverageVerifyTime
-50,636.089015ms
-100,641.568282ms
-200,641.918789ms
-500,640.336401ms
-999,633.954675ms
-1000,647.268914ms
