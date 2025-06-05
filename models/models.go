@@ -50,27 +50,27 @@ type Signature struct {
 
 // SignatureProof represents the proof of a BBS++ signature.
 // It contains the following elements:
-// - A_prim: The first component of the proof masking the signature.
-// - B_prim: The second component of the proof masking the signature.
+// - APrim: The first component of the proof masking the signature.
+// - BPrim: The second component of the proof masking the signature.
 // - Ch: The challenge scalar derived from the hash of the message and commitments.
-// - Z_r: The response value for the random scalar.
-// - Z_i: A list of response values for the attributes.
-// - Z_e: The response value for the random scalar used in the signing process.
+// - Zr: The response value for the random scalar.
+// - Zi: A list of response values for the attributes.
+// - Ze: The response value for the random scalar used in the signing process.
 type SignatureProof struct {
-	A_prim *e.G1
-	B_prim *e.G1
-	Ch *e.Scalar
-	Z_r *e.Scalar
-	Z_i []e.Scalar
-	Z_e *e.Scalar
+    APrim *e.G1
+    BPrim *e.G1
+    Ch    *e.Scalar
+    Zr    *e.Scalar
+    Zi    []e.Scalar
+    Ze    *e.Scalar
 }
 
 // SerializableSignatureProof represents a serializable version of the SignatureProof.
 type SerializableSignatureProof struct {
-    A_prim []byte
-    B_prim []byte
-    Ch     []byte
-    Z_r    []byte
-    Z_i    [][]byte
-    Z_e    []byte
+    APrim []byte
+    BPrim []byte
+    Ch    []byte
+    Zr    []byte
+    Zi    [][]byte
+    Ze    []byte
 }

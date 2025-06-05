@@ -1,5 +1,7 @@
 github.com/aniagut/msc-bbs-plus-plus v1.0.0 h1:rez9ZOLEUaZg4XhdFiTcEBxP5Af3gQdDG1i3NQ1pws4=
 github.com/aniagut/msc-bbs-plus-plus v1.0.0/go.mod h1:aY4bNK8SpZuwKSQ5KYa7dQP34BidQKeoQ+QarfGPv4o=
+github.com/aniagut/msc-bbs-plus-plus v1.0.3 h1:F2bapx9WYeVtyzj/lUz0RQk4sqgRQCtolLJp4EcZG+Y=
+github.com/aniagut/msc-bbs-plus-plus v1.0.3/go.mod h1:aY4bNK8SpZuwKSQ5KYa7dQP34BidQKeoQ+QarfGPv4o=
 github.com/cloudflare/circl v1.6.1 h1:zqIqSPIndyBh1bjLVVDHMPpVKqp8Su/V+6MeDzzQBQ0=
 github.com/cloudflare/circl v1.6.1/go.mod h1:uddAzsPgqdMAYatqJ0lsjX1oECcQLIlRpzZh3pJrofs=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=

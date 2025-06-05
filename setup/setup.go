@@ -3,6 +3,7 @@ package setup
 import (
 	"github.com/aniagut/msc-bbs-plus-plus/keygen"
 	"github.com/aniagut/msc-bbs-anonymous-credentials/models"
+	"errors"
 )
 	
 // Setup initializes the public parameters and keys for the BBS++ system.
@@ -17,6 +18,11 @@ import (
 //   - error: An error if the setup process fails.
 //
 func Setup(l int) (models.SetupResult, error) {
+	// Validate the input parameter l
+	if l <= 0 {
+		return models.SetupResult{}, errors.New("the number of independent generators must be greater than 0")
+	}
+
 	// Run KeyGen from the BBS++ library to generate the public parameters, public key and secret key
 	result, err := keygen.KeyGen(l)
 	if err != nil {

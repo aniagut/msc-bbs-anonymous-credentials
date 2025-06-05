@@ -8,8 +8,8 @@ import (
     "github.com/stretchr/testify/assert"
 )
 
-// Helper function to generate mock public parameters
-func mockPublicParameters() models.PublicParameters {
+// MockPublicParameters creates a mock public parameters object for testing
+func MockPublicParameters() models.PublicParameters {
     h1 := make([]e.G1, 5)
     for i := 0; i < 5; i++ {
         h1[i] = *e.G1Generator()
@@ -20,10 +20,10 @@ func mockPublicParameters() models.PublicParameters {
     }
 }
 
-// Helper function to generate a mock signature
-func mockSignature() models.Signature {
-	E := new(e.Scalar)
-	E.SetUint64(12345)
+// MockSignature creates a mock signature object for testing
+func MockSignature() models.Signature {
+    E := new(e.Scalar)
+    E.SetUint64(12345)
     return models.Signature{
         A: e.G1Generator(),
         E: E,
@@ -34,27 +34,27 @@ func mockSignature() models.Signature {
 func TestPresentation_Success(t *testing.T) {
     attributes := []string{"attribute1", "attribute2", "attribute3", "attribute4", "attribute5"}
     revealed := []int{0, 2}
-    publicParams := mockPublicParameters()
-    credential := mockSignature()
+    publicParams := MockPublicParameters()
+    credential := MockSignature()
     nonce := []byte("random_nonce")
 
     proof, err := Presentation(attributes, credential, revealed, publicParams, nonce)
 
     assert.NoError(t, err, "Expected no error during proof generation")
-    assert.NotNil(t, proof.A_prim, "A_prim should not be nil")
-    assert.NotNil(t, proof.B_prim, "B_prim should not be nil")
+    assert.NotNil(t, proof.APrim, "APrim should not be nil")
+    assert.NotNil(t, proof.BPrim, "BPrim should not be nil")
     assert.NotNil(t, proof.Ch, "Challenge should not be nil")
-    assert.NotNil(t, proof.Z_r, "Z_r should not be nil")
-    assert.NotNil(t, proof.Z_e, "Z_e should not be nil")
-    assert.NotNil(t, proof.Z_i, "Z_i should not be nil")
+    assert.NotNil(t, proof.Zr, "Zr should not be nil")
+    assert.NotNil(t, proof.Ze, "Ze should not be nil")
+    assert.NotNil(t, proof.Zi, "Zi should not be nil")
 }
 
 // Test for invalid revealed indices (out of bounds)
 func TestPresentation_InvalidRevealedIndices(t *testing.T) {
     attributes := []string{"attribute1", "attribute2", "attribute3"}
     revealed := []int{0, 5} // Index 5 is out of bounds
-    publicParams := mockPublicParameters()
-    credential := mockSignature()
+    publicParams := MockPublicParameters()
+    credential := MockSignature()
     nonce := []byte("random_nonce")
 
     _, err := Presentation(attributes, credential, revealed, publicParams, nonce)
@@ -66,8 +66,8 @@ func TestPresentation_InvalidRevealedIndices(t *testing.T) {
 func TestPresentation_EmptyAttributes(t *testing.T) {
     attributes := []string{}
     revealed := []int{}
-    publicParams := mockPublicParameters()
-    credential := mockSignature()
+    publicParams := MockPublicParameters()
+    credential := MockSignature()
     nonce := []byte("random_nonce")
 
     _, err := Presentation(attributes, credential, revealed, publicParams, nonce)

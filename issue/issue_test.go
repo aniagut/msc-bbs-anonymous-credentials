@@ -7,8 +7,8 @@ import (
     "github.com/stretchr/testify/assert"
 )
 
-// Helper function to generate mock public parameters
-func mockPublicParameters() models.PublicParameters {
+// MockPublicParameters creates a mock public parameters object for testing
+func MockPublicParameters() models.PublicParameters {
     h1 := make([]e.G1, 5)
     for i := 0; i < 5; i++ {
         h1[i] = *e.G1Generator()
@@ -19,8 +19,8 @@ func mockPublicParameters() models.PublicParameters {
     }
 }
 
-// Helper function to generate a mock secret key
-func mockSecretKey() models.SecretKey {
+// MockSecretKey creates a mock secret key object for testing
+func MockSecretKey() models.SecretKey {
 	X := new(e.Scalar)
 	X.SetUint64(12345)
     return models.SecretKey{
@@ -31,8 +31,8 @@ func mockSecretKey() models.SecretKey {
 // Test for successful credential issuance
 func TestIssue_Success(t *testing.T) {
     attributes := []string{"attribute1", "attribute2", "attribute3", "attribute4", "attribute5"}
-    publicParams := mockPublicParameters()
-    secretKey := mockSecretKey()
+    publicParams := MockPublicParameters()
+    secretKey := MockSecretKey()
 
     signature, err := Issue(attributes, publicParams, secretKey)
 
@@ -44,8 +44,8 @@ func TestIssue_Success(t *testing.T) {
 // Test for invalid attributes (empty list)
 func TestIssue_InvalidAttributes(t *testing.T) {
     attributes := []string{}
-    publicParams := mockPublicParameters()
-    secretKey := mockSecretKey()
+    publicParams := MockPublicParameters()
+    secretKey := MockSecretKey()
 
     _, err := Issue(attributes, publicParams, secretKey)
 

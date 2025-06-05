@@ -131,39 +131,38 @@ func MeasurePresentationTime() {
 
 // SignatureProofToSerializable converts a SignatureProof to a SerializableSignatureProof
 func SignatureProofToSerializable(p *models.SignatureProof) (*models.SerializableSignatureProof, error) {
-    a_prim := p.A_prim.Bytes()
-	
-	b_prim := p.B_prim.Bytes()
+    aPrim := p.APrim.Bytes()
+    bPrim := p.BPrim.Bytes()
 
     ch, err := p.Ch.MarshalBinary()
     if err != nil {
         return nil, err
     }
-    z_r, err := p.Z_r.MarshalBinary()
+    zr, err := p.Zr.MarshalBinary()
     if err != nil {
         return nil, err
     }
-    z_e, err := p.Z_e.MarshalBinary()
+    ze, err := p.Ze.MarshalBinary()
     if err != nil {
         return nil, err
     }
 
-    z_i := make([][]byte, len(p.Z_i))
-    for i, scalar := range p.Z_i {
+    zi := make([][]byte, len(p.Zi))
+    for i, scalar := range p.Zi {
         b, err := scalar.MarshalBinary()
         if err != nil {
             return nil, err
         }
-        z_i[i] = b
+        zi[i] = b
     }
 
     return &models.SerializableSignatureProof{
-        A_prim: a_prim,
-        B_prim: b_prim,
-        Ch:     ch,
-        Z_r:    z_r,
-        Z_i:    z_i,
-        Z_e:    z_e,
+        APrim: aPrim,
+        BPrim: bPrim,
+        Ch:    ch,
+        Zr:    zr,
+        Zi:    zi,
+        Ze:    ze,
     }, nil
 }
 

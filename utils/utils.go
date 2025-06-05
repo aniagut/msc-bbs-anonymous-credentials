@@ -153,16 +153,17 @@ func SerializeListStrings(list []string) []byte {
 }
 
 // ComputeChallenge computes the challenge scalar for the zero-knowledge proof.
-func ComputeChallenge(nonce []byte, U *e.G1, A_prim *e.G1, B_prim *e.G1, a_i []string) (e.Scalar, error) {
+func ComputeChallenge(nonce []byte, U *e.G1, aPrim *e.G1, bPrim *e.G1, aI []string) (e.Scalar, error) {
     // Serialize the inputs
-    attributes_serialized := SerializeListStrings(a_i)
+    attributesSerialized := SerializeListStrings(aI)
     
-    hash, err := HashToScalar(nonce, SerializeG1(U), SerializeG1(A_prim), SerializeG1(B_prim), attributes_serialized)
+    hash, err := HashToScalar(nonce, SerializeG1(U), SerializeG1(aPrim), SerializeG1(bPrim), attributesSerialized)
     if err != nil {
         return e.Scalar{}, errors.New("failed to compute challenge")
     }
     return hash, nil
 }
+
 // ComputeRevealedAndHiddenH computes the h values for the given revealed and hidden attributes.
 func ComputeRevealedAndHiddenH(h1 []e.G1, revealed []int) ([]e.G1, []e.G1, error) {
 	if len(revealed) == 0 {
